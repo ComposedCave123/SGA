@@ -13,6 +13,7 @@ Content-Type: application/json
     "carrera": "Sistemas",
     "correo": "ramon@mail.com"
 }
+
 ###
 PUT http://localhost:3000/alumnos/1002
 Content-Type: application/json
@@ -27,16 +28,6 @@ Content-Type: application/json
 DELETE http://localhost:3000/alumnos/1021
 
 ###
-POST http://localhost:3000/alumnos
-Content-Type: application/json
-
-{
-    "id": 5,
-    "nombre": "Rocío",
-    "carrera": "Programación"
-}
-
-###
 GET http://localhost:3000/docentes
 
 ###
@@ -49,3 +40,35 @@ Content-Type: application/json
     "especialidad": "Programación",
     "correo": "rocio@mail.com"
 }
+
+###
+GET http://localhost:3000/materias
+
+###
+POST http://localhost:3000/materias
+Content-Type: application/json
+
+{
+    "codigo": "PIV",
+    "nombre": "Programación IV",
+    "descripcion": "Desarrollo de aplicaciones web",
+    "cargaHoraria": 96,
+    "estado": "Activa"
+}
+
+###
+GET http://localhost:3000/materias/PIV
+
+###
+PUT http://localhost:3000/materias/PIV
+Content-Type: application/json
+
+{
+    "nombre": "Programación IV",
+    "descripcion": "Desarrollo de aplicaciones web con Node.js y React",
+    "cargaHoraria": 96,
+    "estado": "Activa"
+}
+
+###
+DELETE http://localhost:3000/materias/PIV

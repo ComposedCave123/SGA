@@ -1,7 +1,7 @@
 import { AppBar, Box, Container, IconButton, Link, Stack, Toolbar, Typography } from "@mui/material"
 import HelpOutlineRoundedIcon from "@mui/icons-material/HelpOutlineRounded"
 import { Link as RouterLink } from "react-router-dom"
-import SelectorTema from "./SelectorTema";
+import SelectorTema from "./SelectorTema"
 
 export default function Header() {
     return (
@@ -96,6 +96,15 @@ export default function Header() {
                             sx={{ px: { xs: 1, sm: 1.5 }, py: 1, borderRadius: 2, "&:hover": { bgcolor: "action.hover" } }}
                         >
                             Docentes
+                        </Link>
+                        <Link
+                            component={RouterLink}
+                            to="/materias"
+                            color="text.primary"
+                            underline="none"
+                            sx={{ px: { xs: 1, sm: 1.5 }, py: 1, borderRadius: 2, "&:hover": { bgcolor: "action.hover" } }}
+                        >
+                            Materias
                         </Link>
                         <IconButton
                             component={RouterLink}

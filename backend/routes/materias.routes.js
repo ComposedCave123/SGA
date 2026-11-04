@@ -1,23 +1,19 @@
-const express = require("express") 
+const express = require("express")
 
-const { 
-    obtenerMaterias, 
-    obtenerMateria, 
-    crearMateria, 
-    modificarMateria, 
-    eliminarMateria } = require("../controllers/materias.controller")
-    
-const { obtenerMaterias, obtenerMateria, crearMateria, modificarMateria, eliminarMateria } = require("../controllers/materias.controller")
-const router = express.Router() 
+const {
+    obtenerMaterias,
+    obtenerMateria,
+    crearMateria,
+    modificarMateria,
+    eliminarMateria
+} = require("../controllers/materias.controller")
 
-router.get("/", obtenerMaterias) 
+const router = express.Router()
 
-router.get("/:id", obtenerMateria) 
+router.get("/", obtenerMaterias)
+router.get("/:id", obtenerMateria)
+router.post("/", crearMateria)
+router.put("/:id", modificarMateria)
+router.delete("/:id", eliminarMateria)
 
-router.post("/", crearMateria) 
-
-router.put("/:id", modificarMateria) 
-
-router.delete("/:id", eliminarMateria) 
-
-module.exports = router 
+module.exports = router
