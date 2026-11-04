@@ -49,26 +49,37 @@ POST http://localhost:3000/materias
 Content-Type: application/json
 
 {
+
     "codigo": "PIV",
     "nombre": "Programación IV",
     "descripcion": "Desarrollo de aplicaciones web",
+
     "cargaHoraria": 96,
     "estado": "Activa"
 }
 
 ###
+
 GET http://localhost:3000/materias/PIV
 
 ###
 PUT http://localhost:3000/materias/PIV
+
+
 Content-Type: application/json
 
 {
     "nombre": "Programación IV",
+
     "descripcion": "Desarrollo de aplicaciones web con Node.js y React",
+
+
     "cargaHoraria": 96,
     "estado": "Activa"
 }
 
 ###
+
 DELETE http://localhost:3000/materias/PIV
+
+

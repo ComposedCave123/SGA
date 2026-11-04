@@ -1,4 +1,5 @@
 const Materia = require("../models/Materia")
+const ESTADOS = ["Activa", "Inactiva"]
 
 async function obtenerMaterias(req, res) {
     try {
@@ -42,6 +43,12 @@ async function crearMateria(req, res) {
             return res.status(400).json({
                 mensaje: "El codigo debe ser un texto"
             })
+            
+        }
+        if (!ESTADOS.includes(estado)) {
+            return res.status(400).json({
+                mensaje: "El estado debe ser Activa o Inactiva"
+            })
         }
         const existe = await Materia.findOne({ codigo })
         if (existe) {
@@ -65,6 +72,11 @@ async function crearMateria(req, res) {
 async function modificarMateria(req, res) {
     try {
         const { nombre, descripcion, cargaHoraria, estado } = req.body
+            if (!ESTADOS.includes(estado)) {
+            return res.status(400).json({
+                mensaje: "El estado debe ser Activa o Inactiva"
+        })
+        }
         const materiaActualizada = await Materia.findOneAndUpdate(
             { codigo: String(req.params.id) },
             { nombre, estado, descripcion, cargaHoraria },

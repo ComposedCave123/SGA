@@ -1,5 +1,6 @@
 const express = require("express")
 
+
 const {
     obtenerMaterias,
     obtenerMateria,
@@ -7,6 +8,8 @@ const {
     modificarMateria,
     eliminarMateria
 } = require("../controllers/materias.controller")
+
+
 
 const router = express.Router()
 

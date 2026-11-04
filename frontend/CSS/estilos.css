@@ -238,3 +238,18 @@ th {
 .btn-cancelar:hover {
     background-color: #4b5563;
 }
+
+.campo input,
+.campo select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.campo input:focus,
+.campo select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}

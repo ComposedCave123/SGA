@@ -8,7 +8,11 @@ const materiaSchema = new mongoose.Schema({
     nombre: String,
     cargaHoraria: Number,
     descripcion: String,
-    estado: String
+    estado: {
+    type: String,
+    required: true,
+    enum: ["Activa", "Inactiva"]
+}
 
 },
 { 
