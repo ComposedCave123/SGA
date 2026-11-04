@@ -13,23 +13,31 @@ formulario.addEventListener("submit", async function (event) {
     // Cargamos los valores de los campos del formulario
     const codigo = document.querySelector("#codigo").value.trim()
     const nombre = document.querySelector("#nombre").value.trim()
-    const descripcion = document.querySelector("#descripcion").value.trim()
+    const descripcionOriginal = document.querySelector("#descripcion").value
+    const descripcion = descripcionOriginal.trim()
     const cargaHoraria = document.querySelector("#cargaHoraria").value.trim()
     const estado = document.querySelector("#estado").value.trim()
  
     // Validaciones de los campos del formulario
-    if (codigo === "" || nombre === "" || descripcion === "" || cargaHoraria === "" || estado === "") {
-        mostrarMensaje("Todos los campos son obligatorios", "mje-error")
+    // La descripción es opcional, el resto de los campos son obligatorios
+    if (codigo === "" || nombre === "" || cargaHoraria === "" || estado === "") {
+        mostrarMensaje("Código, nombre, carga horaria y estado son obligatorios", "mje-error")
         return
     }
  
-    if (nombre.length < 3) {
-        mostrarMensaje("El nombre debe tener al menos 3 caracteres", "mje-error")
+    if (nombre.length < 3 || nombre.length > 100) {
+        mostrarMensaje("El nombre debe tener entre 3 y 100 caracteres", "mje-error")
+        return
+    }
+
+    // Si se informa la descripción, no puede tener solo espacios
+    if (descripcionOriginal.length > 0 && descripcion === "") {
+        mostrarMensaje("La descripción no puede contener solo espacios", "mje-error")
         return
     }
  
-    if (isNaN(Number(cargaHoraria)) || Number(cargaHoraria) <= 0) {
-        mostrarMensaje("La carga horaria debe ser un número mayor a 0", "mje-error")
+    if (!Number.isInteger(Number(cargaHoraria)) || Number(cargaHoraria) <= 0) {
+        mostrarMensaje("La carga horaria debe ser un número entero mayor a 0", "mje-error")
         return
     }
  
@@ -117,7 +125,7 @@ function mostrarMaterias(materias) {
         <tr>
             <td>${materia.codigo}</td>
             <td>${materia.nombre}</td>
-            <td>${materia.descripcion}</td>
+            <td>${materia.descripcion || ""}</td>
             <td>${materia.cargaHoraria}</td>
             <td>${materia.estado}</td>
             <td>
@@ -198,13 +206,13 @@ async function editarMateria(codigo) {
         document.querySelector("#codigo").value = materia.codigo
         document.querySelector("#codigo").disabled = true
         document.querySelector("#nombre").value = materia.nombre
-        document.querySelector("#descripcion").value = materia.descripcion
+        document.querySelector("#descripcion").value = materia.descripcion || ""
         document.querySelector("#cargaHoraria").value = materia.cargaHoraria
         document.querySelector("#estado").value = materia.estado
  
         materiaEditar = {
             nombre: materia.nombre,
-            descripcion: materia.descripcion,
+            descripcion: materia.descripcion || "",
             cargaHoraria: materia.cargaHoraria,
             estado: materia.estado
         }

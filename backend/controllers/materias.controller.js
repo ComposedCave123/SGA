@@ -1,5 +1,49 @@
 const Materia = require("../models/Materia")
-const ESTADOS = ["Activa", "Inactiva"]
+
+const ESTADOS = ["activa", "inactiva"]
+
+// Valida los datos según la consigna. Devuelve un mensaje de error o null si todo está bien.
+// validarCodigo es true al crear (el código viene en el body) y false al modificar (viene en la URL).
+function validarDatos(datos, validarCodigo) {
+    const { codigo, nombre, descripcion, cargaHoraria, estado } = datos
+
+    if (validarCodigo) {
+        if (typeof codigo !== "string" || codigo.trim() === "") {
+            return "El codigo es obligatorio y debe ser un texto"
+        }
+    }
+
+    if (typeof nombre !== "string" || nombre.trim() === "") {
+        return "El nombre es obligatorio y debe ser un texto"
+    }
+    if (nombre.trim().length < 3 || nombre.trim().length > 100) {
+        return "El nombre debe tener entre 3 y 100 caracteres"
+    }
+
+    // La descripción es opcional, pero si se informa no puede tener solo espacios
+    if (descripcion !== undefined && descripcion !== null) {
+        if (typeof descripcion !== "string") {
+            return "La descripcion debe ser un texto"
+        }
+        if (descripcion.length > 0 && descripcion.trim() === "") {
+            return "La descripcion no puede contener solo espacios"
+        }
+    }
+
+    if (!Number.isInteger(cargaHoraria) || cargaHoraria <= 0) {
+        return "La carga horaria debe ser un numero entero mayor a 0"
+    }
+
+    if (!ESTADOS.includes(estado)) {
+        return "El estado debe ser activa o inactiva"
+    }
+
+    return null
+}
+
+function limpiarDescripcion(descripcion) {
+    return typeof descripcion === "string" ? descripcion.trim() : undefined
+}
 
 async function obtenerMaterias(req, res) {
     try {
@@ -13,7 +57,7 @@ async function obtenerMaterias(req, res) {
 async function obtenerMateria(req, res) {
     try {
         const materia = await Materia.findOne({
-            codigo: String(req.params.id)
+            codigo: String(req.params.id).trim()
         })
         if (!materia) {
             return res.status(404).json({
@@ -28,34 +72,23 @@ async function obtenerMateria(req, res) {
 
 async function crearMateria(req, res) {
     try {
-        const { codigo, nombre, descripcion, estado, cargaHoraria } = req.body
-        if (!codigo || !nombre || !descripcion || !estado || !cargaHoraria) {
-            return res.status(400).json({
-                mensaje: "Todos los campos son obligatorios"
-            })
+        const mensajeError = validarDatos(req.body, true)
+        if (mensajeError) {
+            return res.status(400).json({ mensaje: mensajeError })
         }
-        if (typeof nombre !== "string") {
-            return res.status(400).json({
-                mensaje: "El nombre debe ser un texto"
-            })
-        }
-        if (typeof codigo !== "string") {
-            return res.status(400).json({
-                mensaje: "El codigo debe ser un texto"
-            })
-            
-        }
-        if (!ESTADOS.includes(estado)) {
-            return res.status(400).json({
-                mensaje: "El estado debe ser Activa o Inactiva"
-            })
-        }
+
+        const codigo = req.body.codigo.trim()
+        const nombre = req.body.nombre.trim()
+        const descripcion = limpiarDescripcion(req.body.descripcion)
+        const { cargaHoraria, estado } = req.body
+
         const existe = await Materia.findOne({ codigo })
         if (existe) {
             return res.status(409).json({
                 mensaje: "El codigo ya existe"
             })
         }
+
         const nuevaMateria = await Materia.create({
             codigo,
             nombre,
@@ -71,14 +104,17 @@ async function crearMateria(req, res) {
 
 async function modificarMateria(req, res) {
     try {
-        const { nombre, descripcion, cargaHoraria, estado } = req.body
-            if (!ESTADOS.includes(estado)) {
-            return res.status(400).json({
-                mensaje: "El estado debe ser Activa o Inactiva"
-        })
+        const mensajeError = validarDatos(req.body, false)
+        if (mensajeError) {
+            return res.status(400).json({ mensaje: mensajeError })
         }
+
+        const nombre = req.body.nombre.trim()
+        const descripcion = limpiarDescripcion(req.body.descripcion)
+        const { cargaHoraria, estado } = req.body
+
         const materiaActualizada = await Materia.findOneAndUpdate(
-            { codigo: String(req.params.id) },
+            { codigo: String(req.params.id).trim() },
             { nombre, estado, descripcion, cargaHoraria },
             { returnDocument: "after", runValidators: true }
         )
@@ -96,7 +132,7 @@ async function modificarMateria(req, res) {
 async function eliminarMateria(req, res) {
     try {
         const materiaEliminada = await Materia.findOneAndDelete({
-            codigo: String(req.params.id)
+            codigo: String(req.params.id).trim()
         })
         if (!materiaEliminada) {
             return res.status(404).json({

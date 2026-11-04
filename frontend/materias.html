@@ -34,19 +34,19 @@
                         <input type="text" id="nombre">
                     </div>
                     <div class="campo">
-                        <label for="descripcion">Descripción</label>
+                        <label for="descripcion">Descripción (opcional)</label>
                         <input type="text" id="descripcion">
                     </div>
                     <div class="campo">
                         <label for="cargaHoraria">Carga horaria (horas)</label>
-                        <input type="number" id="cargaHoraria" min="1">
+                        <input type="number" id="cargaHoraria" min="1" step="1">
                     </div>
                     <div class="campo">
                         <label for="estado">Estado</label>
                         <select id="estado">
-                        <option value="">Seleccione...</option>
-                        <option value="Activa">Activa</option>
-                        <option value="Inactiva">Inactiva</option>
+                            <option value="">Seleccione...</option>
+                            <option value="activa">Activa</option>
+                            <option value="inactiva">Inactiva</option>
                         </select>
                     </div>
                     <div class="acciones-form">
@@ -73,5 +73,6 @@
             </section>
             <div id="mensaje" class="mensaje"></div>
         </main>
+ 
     </body>
 </html>
