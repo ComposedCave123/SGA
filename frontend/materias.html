@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="CSS/estilos.css">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+        <script src="js/storage.js" defer></script>
+        <script src="js/ui.js" defer></script>
+        <script src="js/materias.js" defer></script>
+        <title>SGA - Materias</title>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <a href="index.html">Inicio</a>
+                <a href="alumnos.html">Alumnos</a>
+                <a href="docentes.html">Docentes</a>
+                <a href="materias.html" class="activo">Materias</a>
+            </nav>
+        </header>
+        <main>
+            <h1>Gestión de Materias</h1>
+            <section class="formulario-container">
+                <h2>Alta de Materia</h2>
+                <form id="formulario">
+                    <div class="campo">
+                        <label for="codigo">Código</label>
+                        <input type="text" id="codigo">
+                    </div>
+                    <div class="campo">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre">
+                    </div>
+                    <div class="campo">
+                        <label for="descripcion">Descripción</label>
+                        <input type="text" id="descripcion">
+                    </div>
+                    <div class="campo">
+                        <label for="cargaHoraria">Carga horaria (horas)</label>
+                        <input type="number" id="cargaHoraria" min="1">
+                    </div>
+                    <div class="campo">
+                        <label for="estado">Estado</label>
+                        <input type="text" id="estado">
+                    </div>
+                    <div class="acciones-form">
+                        <button type="submit" id="btnGuardar">Guardar Materia</button>
+                        <button type="button" id="btnCancelar" class="btn-cancelar">Cancelar</button>
+                    </div>
+                </form>
+            </section>
+            <section class="lista-container">
+                <h2>Materias registradas</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Carga horaria</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaMaterias"></tbody>
+                </table>
+            </section>
+            <div id="mensaje" class="mensaje"></div>
+        </main>
+ 
+    </body>
+</html>
