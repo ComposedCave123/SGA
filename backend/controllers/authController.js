@@ -30,7 +30,7 @@ const login = async (req, res) => {
             })
         }
 
-        const token = jwt.sign({
+        const token = jwt.sign({ // Generar un token JWT con la información del usuario
             id: usuario._id,
             rol: usuario.rol
         },
@@ -39,7 +39,7 @@ const login = async (req, res) => {
             expiresIn: process.env.JWT_EXPIRES_IN || "2h"
         }
     )
-        return res.status(200).json({
+        return res.status(200).json({ // Devolver el token y la información del usuario al cliente
             mensaje: "Login correcto",
             token,
             id: usuario._id,

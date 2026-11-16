@@ -1,6 +1,6 @@
 const express = require("express") 
 // const alumnosController = require(
-const { verificarToken } = require("../middlewares/authMiddleware")
+const { verificarToken } = require("../middlewares/authMiddleware") // Importar el middleware de verificación de token
 
 const { 
     obtenerAlumnos, 
@@ -10,7 +10,7 @@ const {
     eliminarAlumno } = require("../controllers/alumnos.controller")
 const router = express.Router() 
 
-router.get("/", verificarToken, obtenerAlumnos) 
+router.get("/", verificarToken, obtenerAlumnos) // Ruta para obtener todos los alumnos, protegida por el middleware de verificación de token
 
 router.get("/:id", verificarToken, obtenerAlumno) 
 

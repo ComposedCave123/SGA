@@ -25,15 +25,18 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:3000/alumnos/1021
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZThjYmUyZGFlOGEwMzFiMGJhNDJiZiIsInJvbCI6ImFkbWluIiwiaWF0IjoxNzk0NTE5NTgwLCJleHAiOjE3OTQ1MjMxODB9.NAL0l5InkKwOdIqqJkjKRXCjlmjQjBoBLMhBgYJ6XJY
 
 ###
 POST http://localhost:3000/alumnos
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZThjYmUyZGFlOGEwMzFiMGJhNDJiZiIsInJvbCI6ImFkbWluIiwiaWF0IjoxNzk0NTE5NTgwLCJleHAiOjE3OTQ1MjMxODB9.NAL0l5InkKwOdIqqJkjKRXCjlmjQjBoBLMhBgYJ6XJY
 
 {
-    "id": 5,
+    "legajo": 1066,
     "nombre": "Rocío",
-    "carrera": "Programación"
+    "carrera": "Programación",
+    "correo": "rocio@mail.com"
 }
 
 ###
