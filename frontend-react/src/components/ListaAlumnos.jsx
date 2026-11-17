@@ -7,11 +7,13 @@ import Paper from "@mui/material/Paper"
 import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
 const API_ALUMNOS = "http://localhost:3000/alumnos"
+import { useAuth } from "../context/useAuth"
 
 export function ListaAlumnos({ actualizar, onAlumnoCreado, onEditarAlumno }) {
     const [alumnos, setAlumnos] = useState([])
     const [cargando, setCargando] = useState(true)
     const [error, setError] = useState("")
+    const { token } = useAuth()
 
     async function eliminarAlumno(legajo){
         const confirmar = window.confirm("¿Seguro que querés eliminar este alumno?")
@@ -19,7 +21,6 @@ export function ListaAlumnos({ actualizar, onAlumnoCreado, onEditarAlumno }) {
             return
         }
         try {
-            const token = localStorage.getItem("token")
             const respuesta = await fetch(`${API_ALUMNOS}/${legajo}`, 
                 { method: "DELETE",
                   headers: {
@@ -42,7 +43,6 @@ export function ListaAlumnos({ actualizar, onAlumnoCreado, onEditarAlumno }) {
             setError("")
 
             try {
-            const token = localStorage.getItem("token")
             const respuesta = await fetch(API_ALUMNOS, {
                 headers: {Authorization: `Bearer ${token}`}
             })
