@@ -6,6 +6,7 @@ import Paper from "@mui/material/Paper"
 import TextField from "@mui/material/TextField"
 import Typography from "@mui/material/Typography"
 const API_ALUMNOS = "http://localhost:3000/alumnos"
+import { useAuth } from "../context/useAuth";
 
 function FormularioA({ onAlumnoCreado, alumnoEditar, onCancelar }){
     const [formulario, setFormulario] = useState({
@@ -16,6 +17,7 @@ function FormularioA({ onAlumnoCreado, alumnoEditar, onCancelar }){
     })
     const [error, setError] = useState("")
     const [guardando, setGuardando] = useState(false)
+    const { token } = useAuth()
 
     function manejarCambio(e) {
         const { name, value} = e.target
@@ -42,7 +44,7 @@ function FormularioA({ onAlumnoCreado, alumnoEditar, onCancelar }){
         try {
             const respuesta = await fetch(url, {
                 method: editando ? "PUT" : "POST",
-                headers: {"Content-Type":"application/json"},
+                headers: {"Content-Type":"application/json", Authorization: `Bearer ${token}`},
                 body: JSON.stringify(alumno)
             })
 
@@ -56,7 +58,7 @@ function FormularioA({ onAlumnoCreado, alumnoEditar, onCancelar }){
                 carrera: "",
                 correo: ""
             })
-            onAlumnoCreado()
+            onAlumnoCreado(editando ? "Modificado" : "Creado") 
         } catch (error) {
             console.error("Error al guardar:", error)
             setError(error.message || "No se pudo conectar con el servidor")

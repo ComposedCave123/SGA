@@ -1,3 +1,8 @@
+
+@token = REEMPLAZAR_POR_TOKEN_VALIDO
+
+### ALUMNOS
+
 GET http://localhost:3000/alumnos
 
 ###
@@ -26,8 +31,22 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:3000/alumnos/1021
+Authorization: Bearer {{token}}
 
 ###
+POST http://localhost:3000/alumnos
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "legajo": 1066,
+    "nombre": "Rocío",
+    "carrera": "Programación",
+    "correo": "rocio@mail.com"
+}
+
+### DOCENTES
+
 GET http://localhost:3000/docentes
 
 ###
@@ -41,7 +60,8 @@ Content-Type: application/json
     "correo": "rocio@mail.com"
 }
 
-###
+### MATERIAS
+
 GET http://localhost:3000/materias
 
 ###
@@ -49,37 +69,40 @@ POST http://localhost:3000/materias
 Content-Type: application/json
 
 {
-
     "codigo": "PIV",
     "nombre": "Programación IV",
     "descripcion": "Desarrollo de aplicaciones web",
-
     "cargaHoraria": 96,
     "estado": "Activa"
 }
 
 ###
-
 GET http://localhost:3000/materias/PIV
 
 ###
 PUT http://localhost:3000/materias/PIV
-
-
 Content-Type: application/json
 
 {
     "nombre": "Programación IV",
-
     "descripcion": "Desarrollo de aplicaciones web con Node.js y React",
-
-
     "cargaHoraria": 96,
     "estado": "Activa"
 }
 
 ###
-
 DELETE http://localhost:3000/materias/PIV
 
+### AUTENTICACIÓN
 
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "admin@sga.com",
+    "password": "ClaveDePrueba123!"
+}
+
+###
+GET http://localhost:3000/alumnos
+Authorization: Bearer {{token}}
